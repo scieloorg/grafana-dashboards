@@ -1,0 +1,1617 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": false,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "limit": 100,
+        "name": "Annotations & Alerts",
+        "showIn": 0,
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 2,
+  "id": 1,
+  "iteration": 1598445568926,
+  "links": [
+    {
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Kernel",
+      "tooltip": "Open Kernel",
+      "type": "link",
+      "url": "http://$_kernel_host/?"
+    },
+    {
+      "icon": "external link",
+      "includeVars": false,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Airflow",
+      "tooltip": "",
+      "type": "link",
+      "url": "http://$_airflow_host"
+    }
+  ],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 14,
+      "panels": [],
+      "title": "Processamentos",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [],
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "0",
+              "to": "",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 10,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  count(*) AS \"Total\",\n  count(distinct file_name) as \"Únicos\"\nFROM\n  xml_documents\nWHERE\n  $__timeFilter(created_at) and dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%') AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%');",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Quantidade de documentos processados",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "displayName": "",
+          "mappings": [
+            {
+              "from": "0",
+              "id": 1,
+              "operator": "",
+              "text": "0",
+              "to": "0",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100000,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "id": 31,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  count(pid) AS \"Total\",\n  count(distinct pid) as \"Únicos\"\nFROM\n  xml_documents\nWHERE\n  $__timeFilter(created_at)\n  AND dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%')\n  AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%')\n  AND failed is FALSE;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Quantidade de documentos processados com sucesso",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "displayName": "",
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "0",
+              "to": "",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 1000000,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
+      "id": 9,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  count(*) AS \"Total\",\n  count(distinct file_name) AS \"Únicos\"\nFROM\n  xml_documents\nWHERE\n  $__timeFilter(created_at) and dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%') AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%') and failed is true;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Quantidade de documentos processados com falha",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$_data_source",
+      "description": "Contabiliza a quantidade de XML processados no decorrer do tempo. O eixo Y exibe a quantidade de artigos e o eixo X o horário de processamento.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "hiddenSeries": false,
+      "id": 21,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": true,
+      "pluginVersion": "6.6.0",
+      "pointradius": 1,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "$__interval",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(created_at,$__interval),\n  count(id) AS \"Registrados com sucesso\"\nFROM xml_documents\nWHERE\n  $__timeFilter(created_at) AND\n  dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%') AND\n  pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%') AND\n  deletion is false\nGROUP BY 1\nORDER BY 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "count"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "xml_documents",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamptz",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(created_at,$__interval),\n  count(id) AS \"Removidos com sucesso\"\nFROM xml_documents\nWHERE\n  $__timeFilter(created_at) AND\n  dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%') AND\n  pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%') AND\n  deletion is true AND\n  failed is false\nGROUP BY 1\nORDER BY 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroupAlias(created_at,$__interval),\n  count(id) AS \"Falhas na remoção\"\nFROM xml_documents\nWHERE\n  $__timeFilter(created_at) AND\n  dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%') AND\n  pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%') AND\n  deletion is true AND\n  failed is true\nGROUP BY 1\nORDER BY 1",
+          "refId": "C",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Documentos processados ao longo do tempo",
+      "tooltip": {
+        "shared": false,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "columns": [],
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "pageSize": 20,
+      "showHeader": true,
+      "sort": {
+        "col": 3,
+        "desc": false
+      },
+      "styles": [
+        {
+          "alias": "Status",
+          "align": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(255, 48, 48, 0.34)",
+            "rgba(237, 129, 40, 0)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "link": false,
+          "mappingType": 1,
+          "pattern": "/^Status$/",
+          "preserveFormat": true,
+          "rangeMaps": [
+            {
+              "from": "",
+              "text": "",
+              "to": ""
+            }
+          ],
+          "sanitize": false,
+          "thresholds": [
+            "0",
+            "1"
+          ],
+          "type": "string",
+          "unit": "none",
+          "valueMaps": [
+            {
+              "text": "Falhou",
+              "value": "1"
+            },
+            {
+              "text": "Sucesso",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "dag_run",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Processamento no Airflow",
+          "linkUrl": "https://$_airflow_host/admin/dagrun/?search=${__cell_0}",
+          "mappingType": 1,
+          "pattern": "Pacote",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select\n    dag_run,\n    count(*) as \"Quantidade\",\n    package_name as \"Pacote\",\n    --(\n    --    case\n    --        failed\n    --        when true then 'Falha'\n     --       when false then 'Sucesso'\n     --   end\n    --) as \"Status\"\n    file_name as \"File\", \n    failed as \"Status\"\n    --to_char(created_at, 'dd-MM-YYYY') as \"Data\"\nFROM\n    xml_documents\nWHERE\n    $__timeFilter(created_at)\n    and dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%')\n    AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%')\n    AND (\n          pid LIKE concat('%', nullif('$pid_v3', ''), '%') OR pid is null\n        )\n    AND (CASE\n                    WHEN ${show_only_documents_errors:singlequote} ILIKE 'Falha' THEN\n                      failed = TRUE\n                    WHEN ${show_only_documents_errors:singlequote} ILIKE 'Sem falha' THEN\n                      failed = False\n                    ELSE\n                     failed IN (False, True)\n                  END)\nGROUP BY\n    dag_run,\n    failed,\n    \"File\",\n    \"Pacote\"\nORDER BY \"Quantidade\" DESC\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "xml",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Artigos processados por pacote",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": "$_data_source",
+      "description": "Lista de arquivos xml processados. Inclui o nome do arquivo XML, o pid v3 (identificador do documento), status de falha ao registrar no Kernel e o texto da falha.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 6,
+      "links": [],
+      "pageSize": null,
+      "pluginVersion": "6.4.4",
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": false
+      },
+      "styles": [
+        {
+          "alias": "Data",
+          "align": "auto",
+          "dateFormat": "DD/MM/YYYY hh:mm:ss",
+          "pattern": "Data",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "",
+          "linkUrl": "http://$_kernel_host/documents/${__cell}",
+          "mappingType": 1,
+          "pattern": "PID v3",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Ver processamento",
+          "linkUrl": "http://$_airflow_host/admin/dagrun/?search=${__cell}",
+          "mappingType": 1,
+          "pattern": "dag_run",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  --file_name as \"Nome\",\n  dag_run,\n  pid as \"PID v3\",\n  (case\n    deletion when true then 'Sim' else 'Não' end\n  ) as \"Remoção\",\n  --(case\n  --  failed when true then 'Sim' else '-' end\n  --) as \"Falhou?\",\n  error as \"Falha\",\n  created_at as \"Data\"\nFROM xml_documents\nWHERE\n  $__timeFilter(created_at)\n  AND dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%')\n  AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%') \n  AND (pid LIKE concat('%', nullif('$pid_v3', ''), '%') or pid is null)\n  --AND failed = (CASE\n  --                  WHEN '$show_only_documents_errors' ILIKE 'Falha' THEN\n  --                    TRUE\n  --                  WHEN '$show_only_documents_errors' ILIKE 'Sem falha' THEN\n  --                    False\n  --                  ELSE\n  --                    False\n  --                END)\n    AND (CASE\n                    WHEN ${show_only_documents_errors:singlequote} ILIKE 'Falha' THEN\n                      failed = TRUE\n                    WHEN ${show_only_documents_errors:singlequote} ILIKE 'Sem falha' THEN\n                      failed = False\n                    ELSE\n                     failed IN (False, True)\n                  END) \nORDER BY created_at DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "id"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "xml",
+          "timeColumn": "created_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "XML Processados",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 27,
+      "panels": [],
+      "title": "Documents Bundle",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [],
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "0",
+              "to": "",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 23
+      },
+      "id": 23,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  count(bundle_id)\nFROM\n  xml_documentsbundle\nWHERE\n  $__timeFilter(created_at)\n  AND dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%')\n  AND pre_sync_dag_run LIKE concat($pre_sync_dag_run_id)\n  AND failed is false\n  AND removed is false",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Quantide de documentos relacionados com seus respectivos bundles",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [],
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "0",
+              "to": "",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 23
+      },
+      "id": 24,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  count(bundle_id)\nFROM\n  xml_documentsbundle\nWHERE\n  $__timeFilter(created_at)\n  AND dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%')\n  AND pre_sync_dag_run LIKE concat($pre_sync_dag_run_id)\n  AND failed is true",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Quantidade de falhas ao relacionar documentos e bundles",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [],
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "operator": "",
+              "text": "0",
+              "to": "",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 23
+      },
+      "id": 25,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "diff"
+          ],
+          "fields": "",
+          "values": true
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  count(distinct pid)\nFROM\n  xml_documentsbundle\nWHERE\n  $__timeFilter(created_at)\n  AND dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%')\n  AND pre_sync_dag_run LIKE concat($pre_sync_dag_run_id)\n  AND ex_ahead is true",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Quantidade de documentos ex ahead",
+      "type": "stat"
+    },
+    {
+      "columns": [],
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 28
+      },
+      "id": 18,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Abre o Bundle no Kernel",
+          "linkUrl": "https://$_kernel_host/bundles/${__cell}",
+          "pattern": "Bundle",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select\n    count(id) as \"Quantidade\",\n    bundle_id as \"Bundle\"\nFROM\n    xml_documentsbundle\nWHERE\n    $__timeFilter(created_at)\n    and dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%')\n    AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%')\n    AND pid LIKE concat('%', nullif('$pid_v3', ''), '%')\n    AND failed is false\nGROUP BY\n    bundle_id\nORDER BY\n    \"Quantidade\"\n--    dag_run,\n--    failed,",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Quantidade de sucessos por bundle",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "columns": [],
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 28
+      },
+      "id": 28,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "right",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "dag_run",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Abre o processamento no Airflow",
+          "linkUrl": "https://$_airflow_host/admin/dagrun/?search=${__cell_2}",
+          "mappingType": 1,
+          "pattern": "Quantidade",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Abrir DocumentsBundle no Kernel",
+          "linkUrl": "https://kernel.scielo.br/bundles/${__cell}",
+          "mappingType": 1,
+          "pattern": "Bundle",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select\n    count(*) as \"Quantidade\",\n    bundle_id as \"Bundle\",\n    dag_run,\n    error\nFROM\n    xml_documentsbundle\nWHERE\n    $__timeFilter(created_at)\n    and dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%')\n    AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%')\n    AND pid LIKE concat('%', nullif('$pid_v3', ''), '%')\n    AND failed is true\nGROUP BY\n    bundle_id,\n    dag_run,\n    error\nORDER BY\n    \"Quantidade\"",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Quantidade de falhas por bundle",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "columns": [],
+      "datasource": "$_data_source",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 28
+      },
+      "id": 19,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Abrir documentsbundle",
+          "linkUrl": "https://$_kernel_host/bundles/${__cell}",
+          "mappingType": 1,
+          "pattern": "Document Bundle",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Abre o documento no Kernel",
+          "linkUrl": "https://$_kernel_host/documents/${__cell}",
+          "mappingType": 1,
+          "pattern": "PID v3",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select\n    pid as \"PID v3\",\n    bundle_id as \"Document Bundle\",\n    (case ex_ahead when true then 'Sim' else '-' end) as \"Ex ahead of print\"\nFROM\n    xml_documentsbundle\nWHERE\n    $__timeFilter(created_at)\n    AND dag_run LIKE concat('%', $pacotes_extraidos_dag_run, '%')\n    AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id, '%')\n    AND pid LIKE concat('%', nullif('$pid_v3', ''), '%')\n    AND failed is false\n    AND ex_ahead = (CASE\n                    WHEN '$show_link_by_type' ILIKE 'Regular' THEN\n                      FALSE\n                    WHEN '$show_link_by_type' ILIKE 'Ex-Ahead' THEN\n                      True\n                    ELSE\n                      False\n                  END)",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Lista de artigos e seus respectivos bundles",
+      "transform": "table",
+      "type": "table-old"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 25,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Airflow SPF - Produção",
+          "value": "Airflow SPF - Produção"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data Source",
+        "multi": false,
+        "name": "_data_source",
+        "options": [],
+        "query": "postgres",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": "'%'",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "$_data_source",
+        "definition": "SELECT pre_sync_dag_run FROM xml_documents WHERE $__timeFilter(created_at) order by created_at desc;",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Processamento",
+        "multi": false,
+        "name": "pre_sync_dag_run_id",
+        "options": [],
+        "query": "SELECT pre_sync_dag_run FROM xml_documents WHERE $__timeFilter(created_at) order by created_at desc;",
+        "refresh": 2,
+        "regex": "(.*)",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": "'%'",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "$_data_source",
+        "definition": "select\n    dag_run\nfrom\n    xml_documents\nwhere\n    $__timeFilter(created_at)\n    AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id,  '%')\norder by\n    created_at desc;",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Pacote",
+        "multi": false,
+        "name": "pacotes_extraidos_dag_run",
+        "options": [],
+        "query": "select\n    dag_run\nfrom\n    xml_documents\nwhere\n    $__timeFilter(created_at)\n    AND pre_sync_dag_run LIKE concat('%', $pre_sync_dag_run_id,  '%')\norder by\n    created_at desc;",
+        "refresh": 1,
+        "regex": ".*__(.*)_.*",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "hide": 0,
+        "label": "XML PID V3",
+        "name": "pid_v3",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "allValue": "'Todos'",
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "hide": 0,
+        "includeAll": true,
+        "label": "Filtrar documentos por",
+        "multi": false,
+        "name": "show_only_documents_errors",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "Sem Falha",
+            "value": "Sem Falha"
+          },
+          {
+            "selected": false,
+            "text": "Falha",
+            "value": "Falha"
+          }
+        ],
+        "query": "Sem Falha,Falha",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "Regular",
+          "value": "Regular"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Filtrar Relacionamentos por",
+        "multi": false,
+        "name": "show_link_by_type",
+        "options": [
+          {
+            "selected": true,
+            "text": "Regular",
+            "value": "Regular"
+          },
+          {
+            "selected": false,
+            "text": "Ex-Ahead",
+            "value": "Ex-Ahead"
+          }
+        ],
+        "query": "Regular,Ex-Ahead",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "airflow.scielo.br",
+          "value": "airflow.scielo.br"
+        },
+        "hide": 2,
+        "label": "_airflow_host",
+        "name": "_airflow_host",
+        "options": [
+          {
+            "selected": true,
+            "text": "airflow.scielo.br",
+            "value": "airflow.scielo.br"
+          }
+        ],
+        "query": "airflow.scielo.br",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "kernel.scielo.br",
+          "value": "kernel.scielo.br"
+        },
+        "hide": 2,
+        "label": "kernel_host",
+        "name": "_kernel_host",
+        "options": [
+          {
+            "selected": true,
+            "text": "kernel.scielo.br",
+            "value": "kernel.scielo.br"
+          }
+        ],
+        "query": "kernel.scielo.br",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Processamento SPF - Produção",
+  "uid": "pbV_X5nGz",
+  "version": 18
+}
