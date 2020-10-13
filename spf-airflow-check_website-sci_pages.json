@@ -1,4 +1,40 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_DISPONIBILIDADE_DO SITE",
+      "label": "Disponibilidade do Site",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "postgres",
+      "pluginName": "PostgreSQL"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.1.5"
+    },
+    {
+      "type": "datasource",
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,11 +51,11 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
+  "id": null,
   "links": [],
   "panels": [
     {
-      "datasource": "Disponibilidade do Site",
+      "datasource": "${DS_DISPONIBILIDADE_DO SITE}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -109,7 +145,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Disponibilidade do Site",
+      "datasource": "${DS_DISPONIBILIDADE_DO SITE}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -195,7 +231,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Disponibilidade do Site",
+      "datasource": "${DS_DISPONIBILIDADE_DO SITE}",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -312,7 +348,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Disponibilidade do Site",
+      "datasource": "${DS_DISPONIBILIDADE_DO SITE}",
       "fieldConfig": {
         "defaults": {
           "custom": {
